@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+    background-image: url("../assets/image.png");
+    background-color: #cccccc;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+   }
+   html {
+    height: 100%
+}
+
+.container {
+    margin-top: 2rem;
+    background-color: white;
+}
+
+.grid-container {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 400px;
+}
+
