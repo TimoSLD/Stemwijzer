@@ -3730,16 +3730,127 @@ var subjects = [{
   }
 ];
 
-var statement = document.getElementsByClassName("statement");
+
+var i = 0;
+if (i === 30){
+  document.getElementById("title").innerHTML = "klaar";
+  document.getElementById("statement").innerHTML = "finished ";
+  eens.remove();
+  oneens.remove(); 
+  geenKeus.remove();
+  terug.remove();
+}
+
+var eensClicked = 0;
+var oneensClicked = 0;
+var geenKeusClicked = 0;
+var terugClicked = 0;
 
 function start(){
-    console.log(subjects);
-    console.log(subjects[0]);
-    statement.innerHTML = subjects.statement[0];
 
+  document.getElementById("title").innerHTML = subjects[i].title;
+  document.getElementById("statement").innerHTML = subjects[i].statement;
 
+  
+    var eens = document.createElement("BUTTON");
+    eens.innerHTML = "eens";
+    eens.setAttribute("id", "eensbutton");
+    document.getElementById("grid-container").appendChild(eens);
 
+    eens.onclick = function(){
+      eensClicked ++;
+      console.log("je hebt " + eensClicked + "x eens geklikt");
+      i++;
+      if (i === 30){
+        document.getElementById("title").innerHTML = "klaar";
+        document.getElementById("statement").innerHTML = "finished ";
+        eens.remove();
+        oneens.remove();
+        geenKeus.remove();
+        terug.remove();
+      }
+      document.getElementById("title").innerHTML = subjects[i].title;
+      document.getElementById("statement").innerHTML = subjects[i].statement;
+     
+    };
 
+    var oneens = document.createElement("BUTTON");
+    oneens.innerHTML = "oneens";
+    oneens.setAttribute("id", "oneensbutton");
+    document.getElementById("grid-container").appendChild(oneens);
 
+    oneens.onclick = function(){
+      oneensClicked ++;
+      console.log("je hebt " + oneensClicked + "x oneens geklikt");
+      i++;
+      if (i === 30){
+        document.getElementById("title").innerHTML = "klaar";
+        document.getElementById("statement").innerHTML = "finished ";
+        eens.remove();
+        oneens.remove();
+        geenKeus.remove();
+        terug.remove();
+      }
+      document.getElementById("title").innerHTML = subjects[i].title;
+      document.getElementById("statement").innerHTML = subjects[i].statement;
+    
+    };
 
+    var geenKeus = document.createElement("BUTTON");
+    geenKeus.innerHTML = "geen keus";
+    geenKeus.setAttribute("id", "geenkeusbutton");
+    document.getElementById("grid-container").appendChild(geenKeus);
+
+    geenKeus.onclick = function(){
+      geenKeusClicked ++;
+      console.log("je hebt " + geenKeusClicked + "x geen keus geklikt");
+      i++;
+      if (i === 30){
+        document.getElementById("title").innerHTML = "klaar";
+        document.getElementById("statement").innerHTML = "finished ";
+        eens.remove();
+        oneens.remove();
+        geenKeus.remove();
+        terug.remove();
+      }
+      document.getElementById("title").innerHTML = subjects[i].title;
+      document.getElementById("statement").innerHTML = subjects[i].statement;
+    };
+
+    var terug = document.createElement("BUTTON");
+    terug.innerHTML = "terug (not working)";
+    terug.setAttribute("id", "terugbutton");
+    document.getElementById("grid-container").appendChild(terug);
+
+    terug.onclick = function(){
+      terugClicked++;
+      console.log("je hebt " + terugClicked + "x terug geklikt");
+      i--
+      document.getElementById("title").innerHTML = subjects[i].title;
+      document.getElementById("statement").innerHTML = subjects[i].statement;
+      if (i < 0){
+        document.getElementById("title").innerHTML = "U gaat 30 vragen beantwoorden";
+        document.getElementById("statement").innerHTML = "";
+        eens.remove(), oneens.remove(), geenKeus.remove(), terug.remove();
+        startButton = document.createElement("BUTTON");
+        startButton.innerHTML = "start";
+        startButton.setAttribute("id", "startbutton");
+        startButton.onclick = function (){
+          i = 0;
+          eensClicked = 0;
+          oneensClicked = 0;
+          geenKeusClicked = 0;
+          terugClicked = 0;
+          start();
+        }
+        document.getElementById("grid-container").appendChild(startButton);
+      }
+    }
+    var startButton = document.getElementById("startbutton");
+    startButton.remove();
 }
+
+
+
+ 
+

@@ -6,18 +6,75 @@ body {
     background-repeat: no-repeat;
     background-size: 100% 100%;
    }
-   html {
+
+html {
     height: 100%
 }
 
 .container {
     margin-top: 2rem;
+    padding: 0 0 2rem 0;
     background-color: white;
 }
 
-.grid-container {
-    display: inline-grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: 400px;
+#grid-container {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 50px 50px 50px 50px 50px;
 }
 
+#headtitle {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+#title {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+#statement {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+#startbutton {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+#eensbutton {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+#oneensbutton {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+#geenkeusbutton {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+#terugbutton {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 5;
+    grid-row-end: 6;
+}
