@@ -73,6 +73,7 @@ html {
 }
 
 #terugbutton {
+    margin-top: 1rem;
     grid-column-start: 3;
     grid-column-end: 4;
     grid-row-start: 5;
