@@ -8,9 +8,7 @@ if (i === subjects.length){
   terug.remove();
 }
 
-let anwsers = [
-
-]
+let anwsers = [];
 
 var eensClicked = 0;
 var oneensClicked = 0;
@@ -29,7 +27,8 @@ function start(){
     document.getElementById("grid-container").appendChild(eens);
 
     eens.onclick = function(){
-      eensClicked++;
+      anwsers[i] = "pro";
+      console.log(anwsers);
       console.log("je hebt " + eensClicked + "x eens geklikt");
       i++;
       if (i === subjects.length){
@@ -46,8 +45,7 @@ function start(){
         getResults.onclick = function(){
           getResults.remove();
           document.getElementById("title").innerHTML = "resultaten:";
-          document.getElementById("statement").innerHTML = "je hebt " + eensClicked + "x op eens geklikt.<br> je hebt " + oneensClicked + 
-          "x op oneens geklikt.<br> je hebt " + geenKeusClicked + "x op geen keus geklikt.<br>";
+          document.getElementById("statement").innerHTML = "";
         }
       }
       document.getElementById("title").innerHTML = subjects[i].title;
@@ -61,9 +59,9 @@ function start(){
     document.getElementById("grid-container").appendChild(oneens);
 
     oneens.onclick = function(){
-      oneensClicked ++;
-      console.log("je hebt " + oneensClicked + "x oneens geklikt");
-      i++;
+      anwsers[i] = "contra";
+      console.log(anwsers);
+      i++
       if (i === subjects.length){
         document.getElementById("title").innerHTML = "U bent klaar!";
         document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
@@ -78,8 +76,7 @@ function start(){
         getResults.onclick = function(){
           getResults.remove();
           document.getElementById("title").innerHTML = "resultaten:";
-          document.getElementById("statement").innerHTML = "je hebt " + eensClicked + "x op eens geklikt.<br> je hebt " + oneensClicked + 
-          "x op oneens geklikt.<br> je hebt " + geenKeusClicked + "x op geen keus geklikt.<br>";
+          document.getElementById("statement").innerHTML = "";
         }
       }
       document.getElementById("title").innerHTML = subjects[i].title;
@@ -93,8 +90,8 @@ function start(){
     document.getElementById("grid-container").appendChild(geenKeus);
 
     geenKeus.onclick = function(){
-      geenKeusClicked ++;
-      console.log("je hebt " + geenKeusClicked + "x geen keus geklikt");
+      anwsers[i] = "geen mening";
+      console.log(anwsers);
       i++;
       if (i === subjects.length){
         document.getElementById("title").innerHTML = "U bent klaar!";
@@ -110,8 +107,7 @@ function start(){
         getResults.onclick = function(){
           getResults.remove();
           document.getElementById("title").innerHTML = "resultaten:";
-          document.getElementById("statement").innerHTML = "je hebt " + eensClicked + "x op eens geklikt.<br> je hebt " + oneensClicked + 
-          "x op oneens geklikt.<br> je hebt " + geenKeusClicked + "x op geen keus geklikt.<br>";
+          document.getElementById("statement").innerHTML = "";
         }
       }
       document.getElementById("title").innerHTML = subjects[i].title;
@@ -124,8 +120,6 @@ function start(){
     document.getElementById("grid-container").appendChild(terug);
 
     terug.onclick = function(){
-      terugClicked++;
-      console.log("je hebt " + terugClicked + "x terug geklikt");
         i--;
       if (i < 0){
         document.getElementById("title").innerHTML = "U gaat 30 vragen beantwoorden";
@@ -137,6 +131,7 @@ function start(){
         document.getElementById("grid-container").appendChild(startButton);
         startButton.onclick = function (){
           i = 0;
+          anwsers = [];
           eensClicked = 0;
           oneensClicked = 0;
           geenKeusClicked = 0;
