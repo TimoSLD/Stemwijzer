@@ -1,7 +1,21 @@
+var checkboxPartij = document.getElementById("party-results");
+checkboxPartij.hidden = true;
+
+var checkboxStatement = document.getElementById("statement-results");
+checkboxStatement.hidden = true;
+
+let partijScore = {
+    "PVV" : 0,
+    "D66": 0,
+    "CU": 0,
+    "SP": 0
+  };
+
 var i = 0;
 let anwsers = [];
 
 function start(){
+
 
   document.getElementById("title").innerHTML = subjects[i].title;
   document.getElementById("statement").innerHTML = subjects[i].statement;
@@ -18,6 +32,8 @@ function start(){
     if (i === subjects.length){
       document.getElementById("title").innerHTML = "U bent klaar!";
       document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
+      checkboxPartij.hidden = false;
+      checkboxStatement.hidden = false;
       eens.remove();
       oneens.remove();
       geenKeus.remove();
@@ -28,13 +44,16 @@ function start(){
       getResults.setAttribute("id", "getresult");
       document.getElementById("grid-container").appendChild(getResults);
       getResults.onclick = function(){
+        berekenEindResultaat();
         getResults.remove();
         document.getElementById("title").innerHTML = "resultaten:";
         document.getElementById("statement").innerHTML = "";
       }
     }
-    document.getElementById("title").innerHTML = subjects[i].title;
-    document.getElementById("statement").innerHTML = subjects[i].statement; 
+    else {
+      document.getElementById("title").innerHTML = subjects[i].title;
+    document.getElementById("statement").innerHTML = subjects[i].statement;
+    }
   };
 
   var oneens = document.createElement("BUTTON");
@@ -49,6 +68,8 @@ function start(){
     if (i === subjects.length){
       document.getElementById("title").innerHTML = "U bent klaar!";
       document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
+      checkboxPartij.hidden = false;
+      checkboxStatement.hidden = false;
       eens.remove();
       oneens.remove();
       geenKeus.remove();
@@ -59,14 +80,17 @@ function start(){
       getResults.setAttribute("id", "getresult");
       document.getElementById("grid-container").appendChild(getResults);
       getResults.onclick = function(){
+        berekenEindResultaat();
         getResults.remove();
         document.getElementById("title").innerHTML = "resultaten:";
         document.getElementById("statement").innerHTML = "";
         
       }
     }
-    document.getElementById("title").innerHTML = subjects[i].title;
+    else {
+      document.getElementById("title").innerHTML = subjects[i].title;
     document.getElementById("statement").innerHTML = subjects[i].statement;
+    }
   };
 
   var geenKeus = document.createElement("BUTTON");
@@ -81,6 +105,8 @@ function start(){
     if (i === subjects.length){
       document.getElementById("title").innerHTML = "U bent klaar!";
       document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
+      checkboxPartij.hidden = false;
+      checkboxStatement.hidden = false;
       eens.remove();
       oneens.remove();
       geenKeus.remove();
@@ -91,13 +117,17 @@ function start(){
       getResults.setAttribute("id", "getresult");
       document.getElementById("grid-container").appendChild(getResults);
       getResults.onclick = function(){
+        berekenEindResultaat();
         getResults.remove();
         document.getElementById("title").innerHTML = "resultaten:";
         document.getElementById("statement").innerHTML = "";
       }
     }
-    document.getElementById("title").innerHTML = subjects[i].title;
+    else {
+      document.getElementById("title").innerHTML = subjects[i].title;
     document.getElementById("statement").innerHTML = subjects[i].statement;
+    }
+    
   };
 
   var overslaan = document.createElement("BUTTON");
@@ -123,6 +153,7 @@ function start(){
       document.getElementById("grid-container").appendChild(getResults);
       getResults.onclick = function(){
         getResults.remove();
+        berekenEindResultaat();
         document.getElementById("title").innerHTML = "resultaten:";
         document.getElementById("statement").innerHTML = "";
       }
@@ -157,23 +188,36 @@ function start(){
   }
     var startButton = document.getElementById("startbutton");
     startButton.remove();
+    
 }
 
 function berekenEindResultaat() {
   for(b = 0; b < anwsers.length; b++) {
     for(a=0;a<subjects[b].parties.length;a++){
+
       if(anwsers[b] == subjects[b].parties[a].position){
         console.log("je bent het eens met " + subjects[b].parties[a].name);
+        partijScore[subjects[b].parties[a].name]++
+        console.log(partijScore);
         
       }
-      else{
-        console.log("je bent het niet eens met " + subjects[b].parties[a].name);
-      }
+      
     }
   }
+  
+for(var key in partijScore){
+
+  var resultElement = document.createElement("p");
+  resultElement.innerHTML = key + ": " + partijScore[key];
+  resultElement.setAttribute("id", "resultElement");
+  document.getElementById("grid-container").appendChild(resultElement);
+  
+  checkboxPartij.hidden = true;
+  checkboxStatement.hidden = true;
+ 
 }
-
-
+}
+  
 
  
 
