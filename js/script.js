@@ -1,15 +1,130 @@
-var checkboxPartij = document.getElementById("party-results");
+var checkboxPartij = document.getElementById("parties");
 checkboxPartij.hidden = true;
 
 var checkboxStatement = document.getElementById("statement-results");
 checkboxStatement.hidden = true;
 
-let partijScore = {
-    "PVV" : 0,
-    "D66": 0,
-    "CU": 0,
-    "SP": 0
-  };
+const Field = document.getElementById("parties");
+
+function generateCheckboxList(givenArray, givenField) {
+
+  /*
+
+  display partij namen
+
+  "next" knop die geselecteerde partijen mee neemt
+
+  naar eind resultaat.
+
+  */
+
+  var checkboxes = "";
+  var classLabel = "";
+
+  if (givenArray == parties) {
+      checkboxes = "partyCheckbox";
+      classLabel = "partyLabel";
+  }
+  var loopCount = 0;
+  givenArray.forEach(object => {
+      var newCheckbox = document.createElement("input");
+      newCheckbox.type = "checkbox";
+      newCheckbox.setAttribute("name", parties[loopCount].name);
+      newCheckbox.value = loopCount;
+      newCheckbox.classList.add('mr-2', 'ml-1', `${checkboxes}`);
+      var newLabel = document.createElement("label");
+      if (object.title != null) {
+          newLabel.innerHTML = object.title;
+      }
+      if (object.name != null) {
+          newLabel.innerHTML = object.name;
+      }
+
+      newLabel.setAttribute("class", classLabel);
+      var newLine = document.createElement("br");
+      givenField.append(newLabel);
+      givenField.append(newCheckbox);
+      givenField.append(newLine);
+      newCheckbox = null;
+      loopCount++;
+
+  });
+
+  if (givenArray == parties) {
+    var btnSecular = document.createElement("button");
+    var partyCheckboxes = document.querySelectorAll(".partyCheckbox");
+    btnSecular.innerHTML = "Seculiere partijen";
+    btnSecular.addEventListener("click", function () {
+        partyCheckboxes.forEach(element => {
+            element.checked = false;
+            var name = element.getAttribute("name");
+            parties.forEach(party => {
+                if (party.secular == true) {
+                    if (party.name == name) {
+                        element.checked = true;
+                    }
+                }
+            });
+        })
+    });
+    var btnSize = document.createElement("button");
+    var partyCheckboxes = document.querySelectorAll(".partyCheckbox");
+    btnSize.innerHTML = "Selecteer alle grote partijen";
+    btnSize.addEventListener("click", function () {
+        partyCheckboxes.forEach(element => {
+            var name = element.getAttribute("name");
+            element.checked = false;
+            parties.forEach(party => {
+                if (party.size > 0) {
+                    if (party.name == name) {
+                        element.checked = true;
+                        
+                    }
+                }
+            });
+        });
+    });
+        givenField.append(btnSize);
+        givenField.append(btnSecular);
+    }
+}
+
+generateCheckboxList(parties, Field);
+
+
+let partijScore = { 
+  "VVD" : 0,
+  "CDA" : 0,
+  "PVV" : 0,
+  "D66" : 0,
+  "GroenLinks" : 0,
+  "SP" : 0,
+  "PvdA" : 0,
+  "ChristenUnie" : 0,
+  "Partij voor de Dieren" : 0,
+  "SGP" : 0,
+  "DENK" : 0,
+  "Forum voor Democratie" : 0,
+  "Lokaal in de Kamer" : 0,
+  "OndernemersPartij" : 0,
+  "VNL" : 0,
+  "Nieuwe Wegen" : 0,
+  "De Burger Beweging" : 0,
+  "Piratenpartij" : 0,
+  "Artikel 1" : 0,
+  "Libertarische Partij" : 0,
+  "50Plus" : 0,
+  "Vrijzinnige Partij" : 0,
+  "Libertarische Partij" : 0,
+  "Niet Stemmers" : 0,
+};
+
+
+
+//for (let index = 0; index < parties.length; index++) {
+  //parties.name = partijScore[index];
+//}
+
 
 var i = 0;
 let anwsers = [];
@@ -166,13 +281,12 @@ function start(){
   terug.innerHTML = "terug";
   terug.setAttribute("id", "terugbutton");
   document.getElementById("grid-container").appendChild(terug);
-
   terug.onclick = function(){
     i--;
     if (i < 0){
       document.getElementById("title").innerHTML = "U gaat 30 vragen beantwoorden";
       document.getElementById("statement").innerHTML = "";
-      eens.remove(), oneens.remove(), geenKeus.remove(), terug.remove();
+      eens.remove(), oneens.remove(), geenKeus.remove(), terug.remove(),  overslaan.remove();
       startButton = document.createElement("BUTTON");
       startButton.innerHTML = "start";
       startButton.setAttribute("id", "startbutton");
@@ -188,6 +302,7 @@ function start(){
   }
     var startButton = document.getElementById("startbutton");
     startButton.remove();
+
     
 }
 
@@ -218,6 +333,4 @@ for(var key in partijScore){
 }
 }
   
-
- 
 
