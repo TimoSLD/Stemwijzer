@@ -8,22 +8,15 @@ const Field = document.getElementById("parties");
 
 function generateCheckboxList(givenArray, givenField) {
 
-  /*
-
-  display partij namen
-
-  "next" knop die geselecteerde partijen mee neemt
-
-  naar eind resultaat.
-
-  */
-
   var checkboxes = "";
   var classLabel = "";
+  var classLabelStatement = "";
 
   if (givenArray == parties) {
       checkboxes = "partyCheckbox";
       classLabel = "partyLabel";
+      classLabelStatement =  "" ;
+  
   }
   var loopCount = 0;
   givenArray.forEach(object => {
@@ -84,6 +77,33 @@ function generateCheckboxList(givenArray, givenField) {
             });
         });
     });
+    var loopCount1 = 0;
+  givenArray.forEach(object => {
+      var newCheckboxStatement = document.createElement("input");
+      newCheckboxStatement.type = "checkbox";
+      newCheckboxStatement.setAttribute("name", subjects[loopCount1].statement);
+      newCheckboxStatement.value = loopCount1;
+      newCheckboxStatement.classList.add(`${checkboxes}`);
+      var newLabelStatement = document.createElement("label");
+      if (object.title != null) {
+        newCheckboxStatement.innerHTML = object.title;
+      }
+      if (object.name != null) {
+        newCheckboxStatement.innerHTML = object.name;
+      }
+
+      newCheckboxStatement.setAttribute("class", classLabelStatement);
+      newLineStatement = document.createElement("br");
+      givenField.append(newLabelStatement);
+      givenField.append(newCheckboxStatement);
+      givenField.append(classLabelStatement);
+      newCheckboxStatement = null;
+      loopCount1++;
+
+  });
+
+
+
         givenField.append(btnSize);
         givenField.append(btnSecular);
     }
