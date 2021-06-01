@@ -1,115 +1,46 @@
-var checkboxPartij = document.getElementById("parties");
-checkboxPartij.hidden = true;
+var partieCheck = document.getElementById("partie");
+var partiesCheckText = document.createElement("p");
+var statementCheck = document.getElementById("statements");
+var statementCheckText = document.createElement("p");
 
-var checkboxStatement = document.getElementById("statement-results");
-checkboxStatement.hidden = true;
 
-const Field = document.getElementById("parties");
+function ShowPartiesCheck(){
+  for(index = 0; index < parties.length; index++){
+    var checkBox = document.createElement("INPUT");
+    checkBox.setAttribute("type", "checkbox");
+    checkBox.checked = true;
 
-function generateCheckboxList(givenArray, givenField) {
+    var partieCheck = document.getElementById("partie");
+    var partiesCheckText = document.createElement("p");
 
-  var checkboxes = "";
-  var classLabel = "";
-  var classLabelStatement = "";
+    partiesCheckText.innerHTML = parties[index].name;
+    partieCheck.appendChild(checkBox);
+    partieCheck.appendChild(partiesCheckText); 
 
-  if (givenArray == parties) {
-      checkboxes = "partyCheckbox";
-      classLabel = "partyLabel";
-      classLabelStatement =  "" ;
-  
+    partiesCheckText.className = "text";
+    checkBox.className = "checkBox";
   }
-  var loopCount = 0;
-  givenArray.forEach(object => {
-      var newCheckbox = document.createElement("input");
-      newCheckbox.type = "checkbox";
-      newCheckbox.setAttribute("name", parties[loopCount].name);
-      newCheckbox.value = loopCount;
-      newCheckbox.classList.add('mr-2', 'ml-1', `${checkboxes}`);
-      var newLabel = document.createElement("label");
-      if (object.title != null) {
-          newLabel.innerHTML = object.title;
-      }
-      if (object.name != null) {
-          newLabel.innerHTML = object.name;
-      }
-
-      newLabel.setAttribute("class", classLabel);
-      var newLine = document.createElement("br");
-      givenField.append(newLabel);
-      givenField.append(newCheckbox);
-      givenField.append(newLine);
-      newCheckbox = null;
-      loopCount++;
-
-  });
-
-  if (givenArray == parties) {
-    var btnSecular = document.createElement("button");
-    var partyCheckboxes = document.querySelectorAll(".partyCheckbox");
-    btnSecular.innerHTML = "Seculiere partijen";
-    btnSecular.addEventListener("click", function () {
-        partyCheckboxes.forEach(element => {
-            element.checked = false;
-            var name = element.getAttribute("name");
-            parties.forEach(party => {
-                if (party.secular == true) {
-                    if (party.name == name) {
-                        element.checked = true;
-                    }
-                }
-            });
-        })
-    });
-    var btnSize = document.createElement("button");
-    var partyCheckboxes = document.querySelectorAll(".partyCheckbox");
-    btnSize.innerHTML = "Selecteer alle grote partijen";
-    btnSize.addEventListener("click", function () {
-        partyCheckboxes.forEach(element => {
-            var name = element.getAttribute("name");
-            element.checked = false;
-            parties.forEach(party => {
-                if (party.size > 0) {
-                    if (party.name == name) {
-                        element.checked = true;
-                        
-                    }
-                }
-            });
-        });
-    });
-    var loopCount1 = 0;
-  givenArray.forEach(object => {
-      var newCheckboxStatement = document.createElement("input");
-      newCheckboxStatement.type = "checkbox";
-      newCheckboxStatement.setAttribute("name", subjects[loopCount1].statement);
-      newCheckboxStatement.value = loopCount1;
-      newCheckboxStatement.classList.add(`${checkboxes}`);
-      var newLabelStatement = document.createElement("label");
-      if (object.title != null) {
-        newCheckboxStatement.innerHTML = object.title;
-      }
-      if (object.name != null) {
-        newCheckboxStatement.innerHTML = object.name;
-      }
-
-      newCheckboxStatement.setAttribute("class", classLabelStatement);
-      newLineStatement = document.createElement("br");
-      givenField.append(newLabelStatement);
-      givenField.append(newCheckboxStatement);
-      givenField.append(classLabelStatement);
-      newCheckboxStatement = null;
-      loopCount1++;
-
-  });
-
-
-
-        givenField.append(btnSize);
-        givenField.append(btnSecular);
-    }
 }
 
-generateCheckboxList(parties, Field);
+function ShowStatementsCheck(){
+  for(index1 = 0; index1 < subjects.length; index1++){
+    var checkBoxStatements = document.createElement("INPUT");
+    checkBoxStatements.setAttribute("type", "checkBox");
+    checkBoxStatements.checked = true;
+
+    var statementCheck = document.getElementById("statements");
+    var statementCheckText = document.createElement("p"); 
+
+    statementCheckText.innerHTML = subjects[index1].statement;
+    statementCheck.appendChild(checkBoxStatements);
+    statementCheck.appendChild(statementCheckText); 
+
+    statementCheckText.className = "text1";
+    checkBoxStatements.className = "checkBoxStatements";
+  }
+}
+
+
 
 
 let partijScore = { 
@@ -167,8 +98,8 @@ function start(){
     if (i === subjects.length){
       document.getElementById("title").innerHTML = "U bent klaar!";
       document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
-      checkboxPartij.hidden = false;
-      checkboxStatement.hidden = false;
+      ShowPartiesCheck();
+      ShowStatementsCheck();
       eens.remove();
       oneens.remove();
       geenKeus.remove();
@@ -327,6 +258,8 @@ function start(){
 }
 
 function berekenEindResultaat() {
+  partieCheck.hidden = true;
+  statementCheck.hidden= true;
   for(b = 0; b < anwsers.length; b++) {
     for(a=0;a<subjects[b].parties.length;a++){
 
@@ -347,8 +280,6 @@ for(var key in partijScore){
   resultElement.setAttribute("id", "resultElement");
   document.getElementById("grid-container").appendChild(resultElement);
   
-  checkboxPartij.hidden = true;
-  checkboxStatement.hidden = true;
  
 }
 }
