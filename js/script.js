@@ -8,7 +8,7 @@ function ShowPartiesCheck(){
   for(index = 0; index < parties.length; index++){
     var checkBox = document.createElement("INPUT");
     checkBox.setAttribute("type", "checkbox");
-    checkBox.checked = true;
+    checkBox.checked = false;
 
     var partieCheck = document.getElementById("partie");
     var partiesCheckText = document.createElement("p");
@@ -26,7 +26,7 @@ function ShowStatementsCheck(){
   for(index1 = 0; index1 < subjects.length; index1++){
     var checkBoxStatements = document.createElement("INPUT");
     checkBoxStatements.setAttribute("type", "checkBox");
-    checkBoxStatements.checked = true;
+    checkBoxStatements.checked = false;
 
     var statementCheck = document.getElementById("statements");
     var statementCheckText = document.createElement("p"); 
@@ -269,6 +269,14 @@ function berekenEindResultaat() {
         console.log(partijScore);
         
       }
+
+      for(index = 0; index < parties.length; index++){
+        if(parties[index].name == subjects[b].parties[a].name){
+          partijScore[subjects[b].parties[a].name]++
+       }
+
+      }
+    
       
     }
   }
