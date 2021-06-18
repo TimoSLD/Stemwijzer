@@ -134,8 +134,8 @@ function start(){
     if (i === subjects.length){
       document.getElementById("title").innerHTML = "U bent klaar!";
       document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
-      checkboxPartij.hidden = false;
-      checkboxStatement.hidden = false;
+      ShowPartiesCheck();
+      ShowStatementsCheck();
       eens.remove();
       oneens.remove();
       geenKeus.remove();
@@ -171,8 +171,8 @@ function start(){
     if (i === subjects.length){
       document.getElementById("title").innerHTML = "U bent klaar!";
       document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
-      checkboxPartij.hidden = false;
-      checkboxStatement.hidden = false;
+      ShowPartiesCheck();
+      ShowStatementsCheck();
       eens.remove();
       oneens.remove();
       geenKeus.remove();
@@ -208,6 +208,8 @@ function start(){
     if (i === subjects.length){
       document.getElementById("title").innerHTML = "U bent klaar!";
       document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
+      ShowPartiesCheck();
+      ShowStatementsCheck();
       eens.remove();
       oneens.remove();
       geenKeus.remove();
@@ -237,6 +239,8 @@ function start(){
     if (i < 0){
       document.getElementById("title").innerHTML = "U gaat 30 vragen beantwoorden";
       document.getElementById("statement").innerHTML = "";
+      ShowPartiesCheck();
+      ShowStatementsCheck();
       eens.remove(), oneens.remove(), geenKeus.remove(), terug.remove(),  overslaan.remove();
       startButton = document.createElement("BUTTON");
       startButton.innerHTML = "start";
@@ -267,16 +271,13 @@ function berekenEindResultaat() {
         console.log("je bent het eens met " + subjects[b].parties[a].name);
         partijScore[subjects[b].parties[a].name]++
         console.log(partijScore);
-        
       }
-
-      for(index = 0; index < parties.length; index++){
-        if(parties[index].name == subjects[b].parties[a].name){
-          partijScore[subjects[b].parties[a].name]++
-       }
-
-      }
+      
+      if(parties.name == subjects.parties.name){
+        console.log(partijScore[subjects.parties.name]++)
     
+      }
+      
       
     }
   }
