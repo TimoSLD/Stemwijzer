@@ -1,7 +1,11 @@
+
+
 var partieCheck = document.getElementById("partie");
 var partiesCheckText = document.createElement("p");
 var statementCheck = document.getElementById("statements");
 var statementCheckText = document.createElement("p");
+
+var chosenParty = [];
 
 
 function ShowPartiesCheck(){
@@ -41,6 +45,8 @@ function ShowStatementsCheck(){
 }
 
 
+ 
+
 
 
 let partijScore = { 
@@ -70,6 +76,9 @@ let partijScore = {
   "Niet Stemmers" : 0,
 };
 
+for (let index = 0; index < partijScore.length; index++) {
+  console.log(partijScore[index]);
+}
 
 
 //for (let index = 0; index < parties.length; index++) {
@@ -273,11 +282,18 @@ function berekenEindResultaat() {
         console.log(partijScore);
       }
       
-      if(parties.name == subjects.parties.name){
-        console.log(partijScore[subjects.parties.name]++)
-    
-      }
-      
+      var partieAnswers = document.getElementsByClassName("checkBox");
+      var partieAnswersStatement = document.getElementsByClassName("checkBoxStatements");
+
+  for(index = 0; index < parties.length; index++){
+    if (partieAnswers[index].checked == true && partieAnswersStatement[index].checked == true ){
+     
+    } 
+  }
+  console.log(chosenParty);
+  
+ 
+
       
     }
   }
@@ -293,4 +309,19 @@ for(var key in partijScore){
 }
 }
   
+
+//index krijgen van partijscore
+for (let index = 0; index < partijScore.length; index++) {
+  console.log(partijScore[index].key);
+  //index van checkbox vergelijken met index partijscore
+  //for(index1 = 0; index1 < parties.length; index1++){
+    //if (partieAnswers[index1].checked == true && partieAnswersStatement[index1].checked == true ){
+      //if(partijScore[index] == partieAnswers[index1].checked){
+
+      //}
+    //} 
+  //}
+  
+
+} 
 
