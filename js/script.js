@@ -1,53 +1,101 @@
-
-
 var partieCheck = document.getElementById("partie");
 var partiesCheckText = document.createElement("p");
 var statementCheck = document.getElementById("statements");
 var statementCheckText = document.createElement("p");
 
 var chosenParty = [];
+var partiesData = [];
+var statementData = [];
+
+//maakt de button voor keuze secular.
+var secularbtn = document.createElement("BUTTON");
+secularbtn.innerHTML = "secular";
+secularbtn.setAttribute("id", "secularbutton");
+document.getElementById("grid-container").appendChild(secularbtn);
+secularbtn.style.display = "none";
+
+secularbtn.onclick = function(){
+  for(a = 0; a < parties.length; a++) {
+    for(b=0;b<parties[a].secular; b++){
+        if(parties[a].secular == true){
+          parties[a].secular 
+        }else {
+          partijScore[subjects[c].parties[d].name]+= 0;
+        }
+    }
+    
+  }
+}
+
+// //maakt de button voor keuze regular.
+var regularbtn = document.createElement("BUTTON");
+regularbtn.innerHTML = "regular";
+regularbtn.setAttribute("id", "regularbutton");
+document.getElementById("grid-container").appendChild(regularbtn);
+regularbtn.style.display = "none";
 
 
 function ShowPartiesCheck(){
-  for(index = 0; index < parties.length; index++){
-    var checkBox = document.createElement("INPUT");
-    checkBox.setAttribute("type", "checkbox");
-    checkBox.checked = false;
+  
+  secularbtn.style.display = "";
+  regularbtn.style.display = "";
 
-    var partieCheck = document.getElementById("partie");
-    var partiesCheckText = document.createElement("p");
-
-    partiesCheckText.innerHTML = parties[index].name;
-    partieCheck.appendChild(checkBox);
-    partieCheck.appendChild(partiesCheckText); 
-
-    partiesCheckText.className = "text";
-    checkBox.className = "checkBox";
+  var partieForm = document.getElementById('importantParties');
+  if(partieForm.innerHTML == "") {
+    for (let i = 0; i < parties.length; i++) {
+      partieForm.innerHTML += '<label><input type="checkbox" name="' + parties[i].name + '"> ' + parties[i].name + '</label><br>';
+      
+    }
   }
 }
 
 function ShowStatementsCheck(){
-  for(index1 = 0; index1 < subjects.length; index1++){
-    var checkBoxStatements = document.createElement("INPUT");
-    checkBoxStatements.setAttribute("type", "checkBox");
-    checkBoxStatements.checked = false;
 
-    var statementCheck = document.getElementById("statements");
-    var statementCheckText = document.createElement("p"); 
 
-    statementCheckText.innerHTML = subjects[index1].statement;
-    statementCheck.appendChild(checkBoxStatements);
-    statementCheck.appendChild(statementCheckText); 
 
-    statementCheckText.className = "text1";
-    checkBoxStatements.className = "checkBoxStatements";
+  var statementForm = document.getElementById('importantStatements');
+
+  if(statementForm.innerHTML == "") {
+    for (let i = 0; i < subjects.length; i++) {
+      statementForm.innerHTML += '<label><input type="checkbox" name="' + subjects[i].title + '"> ' + subjects[i].title + '</label><br>';
+      
+    }
+  
   }
 }
 
-
+function calculateImportantPoints(){
  
+  var partieForm = document.getElementById('partieForm').elements;
+    for (let i = 0; i < partieForm.length; i++) {
+      if(partieForm[i].type!="submit") {
+        partiesData[partieForm[i].name] = partieForm[i].checked;
+      }
+    }
 
+    var statementForm = document.getElementById('statementForm').elements;
+    for (let i = 0; i < statementForm.length; i++) {
+      if(statementForm[i].type!="submit") {
+        statementData[statementForm[i].name] = statementForm[i].checked;
+      }
+    }
+    
+    for(c = 0; c < anwsers.length; c++) {
+    for(d=0;d<subjects[c].parties.length;d++){
+        if(statementData[subjects[c].title] == true){
+          partijScore[subjects[c].parties[d].name]+= 1;
+        }else {
+          partijScore[subjects[c].parties[d].name]+= 0;
+        }
+    }
+  }
 
+  
+  
+  //console.log(partiesData);
+  console.log(statementData); 
+  console.log(partiesData);
+}
 
 let partijScore = { 
   "VVD" : 0,
@@ -79,12 +127,6 @@ let partijScore = {
 for (let index = 0; index < partijScore.length; index++) {
   console.log(partijScore[index]);
 }
-
-
-//for (let index = 0; index < parties.length; index++) {
-  //parties.name = partijScore[index];
-//}
-
 
 var i = 0;
 let anwsers = [];
@@ -119,10 +161,16 @@ function start(){
       getResults.setAttribute("id", "getresult");
       document.getElementById("grid-container").appendChild(getResults);
       getResults.onclick = function(){
+        
         berekenEindResultaat();
         getResults.remove();
+        
+        ShowPartiesCheck();
+        ShowStatementsCheck();
         document.getElementById("title").innerHTML = "resultaten:";
         document.getElementById("statement").innerHTML = "";
+        partieForm.remove();
+        statementForm.remove();
       }
     }
     else {
@@ -155,10 +203,14 @@ function start(){
       getResults.setAttribute("id", "getresult");
       document.getElementById("grid-container").appendChild(getResults);
       getResults.onclick = function(){
+        
         berekenEindResultaat();
+     
         getResults.remove();
         document.getElementById("title").innerHTML = "resultaten:";
         document.getElementById("statement").innerHTML = "";
+        partieForm.remove();
+        statementForm.remove();
         
       }
     }
@@ -192,10 +244,12 @@ function start(){
       getResults.setAttribute("id", "getresult");
       document.getElementById("grid-container").appendChild(getResults);
       getResults.onclick = function(){
-        berekenEindResultaat();
+      berekenEindResultaat();
         getResults.remove();
         document.getElementById("title").innerHTML = "resultaten:";
         document.getElementById("statement").innerHTML = "";
+        partieForm.remove();
+        statementForm.remove();
       }
     }
     else {
@@ -233,6 +287,8 @@ function start(){
         berekenEindResultaat();
         document.getElementById("title").innerHTML = "resultaten:";
         document.getElementById("statement").innerHTML = "";
+        partieForm.remove();
+        statementForm.remove();
       }
     }
     document.getElementById("title").innerHTML = subjects[i].title;
@@ -270,30 +326,19 @@ function start(){
     
 }
 
+
+
 function berekenEindResultaat() {
-  partieCheck.hidden = true;
-  statementCheck.hidden= true;
+  secularbtn.remove();
+  regularbtn.remove();
+  calculateImportantPoints();
   for(b = 0; b < anwsers.length; b++) {
     for(a=0;a<subjects[b].parties.length;a++){
-
       if(anwsers[b] == subjects[b].parties[a].position){
         console.log("je bent het eens met " + subjects[b].parties[a].name);
         partijScore[subjects[b].parties[a].name]++
         console.log(partijScore);
       }
-      
-      var partieAnswers = document.getElementsByClassName("checkBox");
-      var partieAnswersStatement = document.getElementsByClassName("checkBoxStatements");
-
-  for(index = 0; index < parties.length; index++){
-    if (partieAnswers[index].checked == true && partieAnswersStatement[index].checked == true ){
-     
-    } 
-  }
-  console.log(chosenParty);
-  
- 
-
       
     }
   }
@@ -304,24 +349,9 @@ for(var key in partijScore){
   resultElement.innerHTML = key + ": " + partijScore[key];
   resultElement.setAttribute("id", "resultElement");
   document.getElementById("grid-container").appendChild(resultElement);
-  
  
 }
 }
   
 
-//index krijgen van partijscore
-for (let index = 0; index < partijScore.length; index++) {
-  console.log(partijScore[index].key);
-  //index van checkbox vergelijken met index partijscore
-  //for(index1 = 0; index1 < parties.length; index1++){
-    //if (partieAnswers[index1].checked == true && partieAnswersStatement[index1].checked == true ){
-      //if(partijScore[index] == partieAnswers[index1].checked){
-
-      //}
-    //} 
-  //}
-  
-
-} 
 
