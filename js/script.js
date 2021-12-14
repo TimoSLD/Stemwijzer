@@ -60,7 +60,6 @@ function ShowStatementsCheck(){
       statementForm.innerHTML += '<label><input type="checkbox" name="' + subjects[i].title + '"> ' + subjects[i].title + '</label><br>';
       
     }
-  
   }
 }
 
@@ -96,6 +95,8 @@ function calculateImportantPoints(){
   console.log(statementData); 
   console.log(partiesData);
 }
+
+
 
 let partijScore = { 
   "VVD" : 0,
@@ -304,9 +305,8 @@ function start(){
     if (i < 0){
       document.getElementById("title").innerHTML = "U gaat 30 vragen beantwoorden";
       document.getElementById("statement").innerHTML = "";
-      ShowPartiesCheck();
-      ShowStatementsCheck();
-      eens.remove(), oneens.remove(), geenKeus.remove(), terug.remove(),  overslaan.remove();
+     
+      eens.remove(), oneens.remove(), geenKeus.remove(), terug.remove(),  overslaan.remove(), regularbtn.remove(), secularbtn.remove();
       startButton = document.createElement("BUTTON");
       startButton.innerHTML = "start";
       startButton.setAttribute("id", "startbutton");
@@ -325,8 +325,6 @@ function start(){
 
     
 }
-
-
 
 function berekenEindResultaat() {
   secularbtn.remove();
