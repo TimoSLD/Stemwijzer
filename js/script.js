@@ -7,7 +7,6 @@ var chosenParty = [];
 var partiesData = [];
 var statementData = [];
 
-//maakt de button voor keuze secular.
 var secularbtn = document.createElement("BUTTON");
 secularbtn.innerHTML = "secular";
 secularbtn.setAttribute("id", "secularbutton");
@@ -27,16 +26,14 @@ secularbtn.onclick = function(){
   }
 }
 
-// //maakt de button voor keuze regular.
 var regularbtn = document.createElement("BUTTON");
 regularbtn.innerHTML = "regular";
 regularbtn.setAttribute("id", "regularbutton");
 document.getElementById("grid-container").appendChild(regularbtn);
 regularbtn.style.display = "none";
 
-
 function ShowPartiesCheck(){
-  
+
   secularbtn.style.display = "";
   regularbtn.style.display = "";
 
@@ -44,17 +41,12 @@ function ShowPartiesCheck(){
   if(partieForm.innerHTML == "") {
     for (let i = 0; i < parties.length; i++) {
       partieForm.innerHTML += '<label><input type="checkbox" name="' + parties[i].name + '"> ' + parties[i].name + '</label><br>';
-      
     }
   }
 }
 
 function ShowStatementsCheck(){
-
-
-
   var statementForm = document.getElementById('importantStatements');
-
   if(statementForm.innerHTML == "") {
     for (let i = 0; i < subjects.length; i++) {
       statementForm.innerHTML += '<label><input type="checkbox" name="' + subjects[i].title + '"> ' + subjects[i].title + '</label><br>';
@@ -64,7 +56,6 @@ function ShowStatementsCheck(){
 }
 
 function calculateImportantPoints(){
- 
   var partieForm = document.getElementById('partieForm').elements;
     for (let i = 0; i < partieForm.length; i++) {
       if(partieForm[i].type!="submit") {
@@ -89,14 +80,9 @@ function calculateImportantPoints(){
     }
   }
 
-  
-  
-  //console.log(partiesData);
   console.log(statementData); 
   console.log(partiesData);
 }
-
-
 
 let partijScore = { 
   "VVD" : 0,
@@ -133,8 +119,6 @@ var i = 0;
 let anwsers = [];
 
 function start(){
-
-
   document.getElementById("title").innerHTML = subjects[i].title;
   document.getElementById("statement").innerHTML = subjects[i].statement;
   
@@ -204,9 +188,7 @@ function start(){
       getResults.setAttribute("id", "getresult");
       document.getElementById("grid-container").appendChild(getResults);
       getResults.onclick = function(){
-        
         berekenEindResultaat();
-     
         getResults.remove();
         document.getElementById("title").innerHTML = "resultaten:";
         document.getElementById("statement").innerHTML = "";
@@ -257,7 +239,6 @@ function start(){
       document.getElementById("title").innerHTML = subjects[i].title;
     document.getElementById("statement").innerHTML = subjects[i].statement;
     }
-    
   };
 
   var overslaan = document.createElement("BUTTON");
@@ -322,8 +303,6 @@ function start(){
   }
     var startButton = document.getElementById("startbutton");
     startButton.remove();
-
-    
 }
 
 function berekenEindResultaat() {
@@ -337,18 +316,15 @@ function berekenEindResultaat() {
         partijScore[subjects[b].parties[a].name]++
         console.log(partijScore);
       }
-      
     }
   }
   
-for(var key in partijScore){
-
-  var resultElement = document.createElement("p");
-  resultElement.innerHTML = key + ": " + partijScore[key];
-  resultElement.setAttribute("id", "resultElement");
-  document.getElementById("grid-container").appendChild(resultElement);
- 
-}
+  for(var key in partijScore){
+    var resultElement = document.createElement("p");
+    resultElement.innerHTML = key + ": " + partijScore[key];
+    resultElement.setAttribute("id", "resultElement");
+    document.getElementById("grid-container").appendChild(resultElement);
+  }
 }
   
 
