@@ -22,7 +22,6 @@ secularbtn.onclick = function(){
           partijScore[subjects[c].parties[d].name]+= 0;
         }
     }
-    
   }
 }
 
@@ -54,29 +53,32 @@ function ShowStatementsCheck(){
     }
   }
 }
+//deze functie checkt of de box is gecheckt of niet.
+function checkForm(form, data){
+  for (let i = 0; i < form.length; i++) {
+    if(form[i].type!="submit") {
+      data[form[i].name] = form[i].checked;
+    }
+  }
+}
 
 function calculateImportantPoints(){
   var partieForm = document.getElementById('partieForm').elements;
-    for (let i = 0; i < partieForm.length; i++) {
-      if(partieForm[i].type!="submit") {
-        partiesData[partieForm[i].name] = partieForm[i].checked;
-      }
-    }
-
-    var statementForm = document.getElementById('statementForm').elements;
-    for (let i = 0; i < statementForm.length; i++) {
-      if(statementForm[i].type!="submit") {
-        statementData[statementForm[i].name] = statementForm[i].checked;
-      }
-    }
+  var statementForm = document.getElementById('statementForm').elements;
+  checkForm(partieForm, partiesData);
+  checkForm(statementForm, statementData);
     
-    for(c = 0; c < anwsers.length; c++) {
-    for(d=0;d<subjects[c].parties.length;d++){
-        if(statementData[subjects[c].title] == true){
-          partijScore[subjects[c].parties[d].name]+= 1;
-        }else {
-          partijScore[subjects[c].parties[d].name]+= 0;
-        }
+  for(c = 0; c < anwsers.length; c++) {
+    var currentSubject = subjects[c];
+
+    for(d=0;d<currentSubject.parties.length;d++){
+      var partyName = currentSubject.parties[d].name;
+
+      if(statementData[currentSubject.title] == true){
+        partijScore[partyName]+= 1;
+      }else {
+        partijScore[partyName]+= 0;
+      }
     }
   }
 
@@ -111,16 +113,47 @@ let partijScore = {
   "Niet Stemmers" : 0,
 };
 
-for (let index = 0; index < partijScore.length; index++) {
-  console.log(partijScore[index]);
-}
+// for (let index = 0; index < partijScore.length; index++) {
+//   console.log(partijScore[index]);
+// }
 
 var i = 0;
-let anwsers = [];
 
-function start(){
+function startVragen(){
   document.getElementById("title").innerHTML = subjects[i].title;
   document.getElementById("statement").innerHTML = subjects[i].statement;
+};
+
+let anwsers = [];
+
+function einde(eens, oneens, geenKeus, terug, overslaan,){
+  document.getElementById("title").innerHTML = "U bent klaar!";
+  document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
+  ShowPartiesCheck();
+  ShowStatementsCheck();
+  eens.remove();
+  oneens.remove();
+  geenKeus.remove();
+  terug.remove();
+  overslaan.remove();
+  var getResults = document.createElement("BUTTON");
+  getResults.innerHTML = "krijg resultaat";
+  getResults.setAttribute("id", "getresult");
+  document.getElementById("grid-container").appendChild(getResults);
+  getResults.onclick = function(){   
+    berekenEindResultaat();
+    getResults.remove();
+    ShowPartiesCheck();
+    ShowStatementsCheck();
+    document.getElementById("title").innerHTML = "resultaten:";
+    document.getElementById("statement").innerHTML = "";
+    partieForm.remove();
+    statementForm.remove();
+  }
+}
+
+function start(){
+  startVragen();
   
   var eens = document.createElement("BUTTON");
   eens.innerHTML = "eens";
@@ -132,35 +165,10 @@ function start(){
     console.log(anwsers);
     i++;
     if (i === subjects.length){
-      document.getElementById("title").innerHTML = "U bent klaar!";
-      document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
-      ShowPartiesCheck();
-      ShowStatementsCheck();
-      eens.remove();
-      oneens.remove();
-      geenKeus.remove();
-      terug.remove();
-      overslaan.remove();
-      var getResults = document.createElement("BUTTON");
-      getResults.innerHTML = "krijg resultaat";
-      getResults.setAttribute("id", "getresult");
-      document.getElementById("grid-container").appendChild(getResults);
-      getResults.onclick = function(){
-        
-        berekenEindResultaat();
-        getResults.remove();
-        
-        ShowPartiesCheck();
-        ShowStatementsCheck();
-        document.getElementById("title").innerHTML = "resultaten:";
-        document.getElementById("statement").innerHTML = "";
-        partieForm.remove();
-        statementForm.remove();
-      }
+      einde(eens, oneens, geenKeus, terug, overslaan);
     }
     else {
-      document.getElementById("title").innerHTML = subjects[i].title;
-    document.getElementById("statement").innerHTML = subjects[i].statement;
+      startVragen();
     }
   };
 
@@ -174,32 +182,10 @@ function start(){
     console.log(anwsers);
     i++
     if (i === subjects.length){
-      document.getElementById("title").innerHTML = "U bent klaar!";
-      document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
-      ShowPartiesCheck();
-      ShowStatementsCheck();
-      eens.remove();
-      oneens.remove();
-      geenKeus.remove();
-      terug.remove();
-      overslaan.remove();
-      var getResults = document.createElement("BUTTON");
-      getResults.innerHTML = "krijg resultaat";
-      getResults.setAttribute("id", "getresult");
-      document.getElementById("grid-container").appendChild(getResults);
-      getResults.onclick = function(){
-        berekenEindResultaat();
-        getResults.remove();
-        document.getElementById("title").innerHTML = "resultaten:";
-        document.getElementById("statement").innerHTML = "";
-        partieForm.remove();
-        statementForm.remove();
-        
-      }
+      einde(eens, oneens, geenKeus, terug, overslaan);
     }
     else {
-      document.getElementById("title").innerHTML = subjects[i].title;
-    document.getElementById("statement").innerHTML = subjects[i].statement;
+      startVragen();
     }
   };
 
@@ -213,31 +199,10 @@ function start(){
     console.log(anwsers);
     i++;
     if (i === subjects.length){
-      document.getElementById("title").innerHTML = "U bent klaar!";
-      document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
-      ShowPartiesCheck();
-      ShowStatementsCheck();
-      eens.remove();
-      oneens.remove();
-      geenKeus.remove();
-      terug.remove();
-      overslaan.remove();
-      var getResults = document.createElement("BUTTON");
-      getResults.innerHTML = "krijg resultaat";
-      getResults.setAttribute("id", "getresult");
-      document.getElementById("grid-container").appendChild(getResults);
-      getResults.onclick = function(){
-      berekenEindResultaat();
-        getResults.remove();
-        document.getElementById("title").innerHTML = "resultaten:";
-        document.getElementById("statement").innerHTML = "";
-        partieForm.remove();
-        statementForm.remove();
-      }
+      einde(eens, oneens, geenKeus, terug, overslaan);
     }
     else {
-      document.getElementById("title").innerHTML = subjects[i].title;
-    document.getElementById("statement").innerHTML = subjects[i].statement;
+      startVragen();
     }
   };
 
@@ -251,30 +216,9 @@ function start(){
     console.log(anwsers);
     i++
     if (i === subjects.length){
-      document.getElementById("title").innerHTML = "U bent klaar!";
-      document.getElementById("statement").innerHTML = "klik op de knop: krijg resultaten om uw resultaten op te halen";
-      ShowPartiesCheck();
-      ShowStatementsCheck();
-      eens.remove();
-      oneens.remove();
-      geenKeus.remove();
-      terug.remove();
-      overslaan.remove();
-      var getResults = document.createElement("BUTTON");
-      getResults.innerHTML = "krijg resultaat";
-      getResults.setAttribute("id", "getresult");
-      document.getElementById("grid-container").appendChild(getResults);
-      getResults.onclick = function(){
-        getResults.remove();
-        berekenEindResultaat();
-        document.getElementById("title").innerHTML = "resultaten:";
-        document.getElementById("statement").innerHTML = "";
-        partieForm.remove();
-        statementForm.remove();
-      }
+      einde(eens, oneens, geenKeus, terug, overslaan);
     }
-    document.getElementById("title").innerHTML = subjects[i].title;
-    document.getElementById("statement").innerHTML = subjects[i].statement;
+    startVragen();
   };
 
   var terug = document.createElement("BUTTON");
@@ -298,8 +242,7 @@ function start(){
         start();
       }
     }
-        document.getElementById("title").innerHTML = subjects[i].title;
-        document.getElementById("statement").innerHTML = subjects[i].statement;
+    startVragen();
   }
     var startButton = document.getElementById("startbutton");
     startButton.remove();
